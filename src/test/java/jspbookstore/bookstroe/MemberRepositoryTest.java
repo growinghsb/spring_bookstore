@@ -1,5 +1,6 @@
 package jspbookstore.bookstroe;
 
+import jspbookstore.bookstroe.domain.TestMember;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +17,11 @@ class MemberRepositoryTest {
     @Transactional
     @Rollback(false)
     public void testMember () throws Exception {
-        Member member = new Member();
+        TestMember member = new TestMember();
         member.setName("memberA");
 
         Long saveId = memberRepository.save(member);
-        Member result = memberRepository.find(saveId);
+        TestMember result = memberRepository.find(saveId);
 
         Assertions.assertThat(result.getId()).isEqualTo(member.getId());
         Assertions.assertThat(result.getName()).isEqualTo(member.getName());
