@@ -84,7 +84,7 @@ class OrderServiceTest {
     }
 
     private Item getBook(String title, int price, int quantity) {
-        Item book = new Book();
+        Item book = Book.createBook(title, price, quantity, " ", " ");
         book.setName(title);
         book.setPrice(price);
         book.setStockQuantity(quantity);
