@@ -8,9 +8,12 @@ import jspbookstore.bookstroe.domain.item.Item;
 import jspbookstore.bookstroe.repository.ItemRepository;
 import jspbookstore.bookstroe.repository.MemberRepository;
 import jspbookstore.bookstroe.repository.OrderRepository;
+import jspbookstore.bookstroe.repository.OrderSearch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Service
@@ -52,7 +55,7 @@ public class OrderService {
     }
 
     // 검색
-   /* public List<Order> findOrders(OrderSearch orderSearch) {
-        return orderRepository.findAll(orderSearch);
-    }*/
+    public List<Order> findOrders(OrderSearch orderSearch) {
+        return orderRepository.findAllByCriteria(orderSearch);
+    }
 }

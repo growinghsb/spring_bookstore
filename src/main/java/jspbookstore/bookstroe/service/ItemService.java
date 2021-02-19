@@ -1,5 +1,7 @@
 package jspbookstore.bookstroe.service;
 
+import jspbookstore.bookstroe.controller.BookForm;
+import jspbookstore.bookstroe.domain.item.Book;
 import jspbookstore.bookstroe.domain.item.Item;
 import jspbookstore.bookstroe.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,17 @@ public class ItemService {
     @Transactional
     public void saveItem(Item item) {
         itemRepository.save(item);
+    }
+
+    @Transactional
+    public void updateItem(Long itemId, BookForm form) {
+        Book book = (Book)itemRepository.findOne(itemId);
+        book.setName(form.getName());
+        book.setIsbn(form.getIsbn());
+        book.setAuthor(form.getAuthor());
+        book.setPrice(form.getPrice());
+        book.setStockQuantity(form.getStockQuantity());
+
     }
 
     public List<Item> findItems(){
