@@ -7,7 +7,6 @@ import jspbookstore.bookstroe.repository.OrderSearch;
 import jspbookstore.bookstroe.service.ItemService;
 import jspbookstore.bookstroe.service.MemberService;
 import jspbookstore.bookstroe.service.OrderService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,7 +36,8 @@ public class OrderController {
     @PostMapping("/order")
     public String order(@RequestParam("memberId")Long memberId,
                         @RequestParam("itemId")Long itemId,
-                        @RequestParam("count")int count) {
+                        @RequestParam("count")int count) { // 해당 코드는 @ModelAttrinbute로 바꿔 객체에 맵핑할 수 있다.
+                                                           // 매개변수를 일일이 받는 거 보다 오브젝트로 받는게 더 낫다. 자동 맵핑도 되고.
         orderService.order(memberId, itemId, count);
 
         return "redirect:/orders";

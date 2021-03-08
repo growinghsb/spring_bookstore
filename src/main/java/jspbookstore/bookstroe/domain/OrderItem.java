@@ -16,7 +16,7 @@ import javax.persistence.*;
  * 기본생성자를 하나 protected 접근제어자로 생성 한 것과 마찬가지이다
  * 이렇게 생성을 제한하는 이유는 아래 생성하는 method가 있기 때문에
  * 생성을 획일화 하기 위해서이다.
- * 이렇게 코드를 제한하는 방식으로 코딩을 하는게
+ * 이렇게 코드를 제한하는 방식으로 코딩을 하는게+
  * 추후 유지보수 측면에서 좋다.
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

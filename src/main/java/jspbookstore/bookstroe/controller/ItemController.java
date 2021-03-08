@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
+
 @Controller
 @RequiredArgsConstructor
 @Slf4j
@@ -61,12 +63,15 @@ public class ItemController {
         form.setAuthor(book.getAuthor());
         form.setIsbn(book.getIsbn());
 
-        model.addAttribute("form", form);
+        model.addAttribute("bookForm", form);
         return "items/updateItemForm";
     }
 
     @PostMapping("items/{itemId}/edit")
-    public String updateItem(@ModelAttribute("form") BookForm form) {
+    public String updateItem(@Valid @ModelAttribute("bookForm") BookForm form, BindingResult result) {
+        if (result.hasErrors()) {
+            return "items/updateItemForm";
+        }
         itemService.updateItem(form.getId(), form);
         return "redirect:/items";
     }

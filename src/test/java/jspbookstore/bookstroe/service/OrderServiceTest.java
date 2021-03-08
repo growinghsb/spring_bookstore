@@ -28,7 +28,7 @@ class OrderServiceTest {
     private OrderService orderService;
 
     @Autowired
-    OrderRepository orderRepository;
+    private OrderRepository orderRepository;
 
 
     // 주문
