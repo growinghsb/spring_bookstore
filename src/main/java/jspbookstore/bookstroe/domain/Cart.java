@@ -29,11 +29,14 @@ public class Cart {
 
     private int count;
 
+    private int price;
+
     public static Cart createCart(Member member, Item item, int count) {
         Cart cart = new Cart();
         cart.member = member;
         cart.item = item;
         cart.count = count;
+        cart.price = item.getPrice() * count;
         return cart;
     }
 }

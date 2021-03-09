@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:replace="fragments/header :: header"/>
+    <meta charset="UTF-8">
+    <title>장바구니</title>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <h3>장바구니</h3>
+    <div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>이름</th>
+                <th>도서명</th>
+                <th>수량</th>
+                <th>가격</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="cart : ${carts}">
+                <td th:text="${cart.getMember().getName()}"></td>
+                <td th:text="${cart.getItem().getName()}"></td>
+                <td th:text="${cart.getCount()}"></td>
+                <td th:text="${cart.getPrice()}"></td>
+                <td><a href="#" class="btn btn-primary" role="button"
+                       th:onclick="|order('${cart.getMember().getId()}', '${cart.getItem().getId()}', '${cart.getCount()}', '${cart.getId()}')|">구매</a>
+                    <!--th:href="'javascript:order('+${cart.getMember().getId()} + ${cart.getItem().getId()} + ${cart.getCount()}+')'"
+                    th:href="@{/order(memberId = ${cart.getMember().getId()}, itemId = ${cart.getItem().getId()}, count = ${cart.getCount()})}"-->
+                </td>
+                <td><a th:href="@{/cart/remove(id=${cart.getId()})}" class="btn btn-primary" role="button">삭제</a></td>
+                <!-- <td>
+                     <a th:if="${order.status.name() == 'ORDER'}" href="#"
+                        th:href="'javascript:cancel('+${order.id}+')'"
+                        class="btn btn-danger">CANCEL</a>
+                 </td>-->
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:replace="fragments/footer :: footer"/>
+</div>
+<script>
+    function order(memberId, itemId, count, cartId) {
+        let form = document.createElement("form");
+        form.setAttribute("method", "post");
+        form.setAttribute("action", "/order/" + memberId + "/" + itemId + "/" + count + "/" + cartId);
+        document.body.appendChild(form);
+        form.submit();
+    }
+</script>
+</body>
+</html>

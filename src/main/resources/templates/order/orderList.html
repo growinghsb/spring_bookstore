@@ -58,7 +58,7 @@
 </body>
 <script>
     function cancel(id) {
-        var form = document.createElement("form");
+        let form = document.createElement("form");
         form.setAttribute("method", "post");
         form.setAttribute("action", "/orders/" + id + "/cancel");
         document.body.appendChild(form);

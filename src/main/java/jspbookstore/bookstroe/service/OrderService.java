@@ -10,6 +10,7 @@ import jspbookstore.bookstroe.repository.MemberRepository;
 import jspbookstore.bookstroe.repository.OrderRepository;
 import jspbookstore.bookstroe.repository.OrderSearch;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,7 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
+@Slf4j
 public class OrderService {
 
     private final OrderRepository orderRepository;
@@ -31,6 +33,8 @@ public class OrderService {
         //엔티티 생성
         Member member = memberRepository.findOne(memberId);
         Item item = itemRepository.findOne(itemId);
+
+        //log.error("item = " + item + " itemId" + item.getId());
 
         //배송정보 생성
         Delivery delivery = new Delivery();
@@ -49,7 +53,7 @@ public class OrderService {
     }
 
     @Transactional
-    public void cancelOrder(Long orderId){
+    public void cancelOrder(Long orderId) {
         Order order = orderRepository.findOne(orderId);
         order.cancel();
     }

@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"/>
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <form th:object="${bookForm}" method="post" action="/cart">
+        <!-- id -->
+        <input type="hidden" th:field="*{id}"/>
+        <div class="form-group">
+            <label for="member">회원선택</label>
+            <select name="memberId" id="member" class="form-control">
+                <option value="">회원을 선택하세요</option>
+                <option th:each="member : ${members}"
+                        th:value="${member.id}"
+                        th:text="${member.name}"/>
+            </select>
+        </div>
+        <div class="form-group">
+            <label th:for="name">상품명</label>
+            <input type="text" th:field="*{name}" class="form-control"
+                   placeholder="이름을 입력하세요" disabled/>
+        </div>
+        <div class="form-group">
+            <label th:for="author">저자</label>
+            <input type="text" th:field="*{author}" class="form-control"
+                   placeholder="저자를 입력하세요" disabled/>
+        </div>
+        <div class="form-group">
+            <label th:for="stockQuantity">수량</label>
+            <input type="number" th:field="*{stockQuantity}" class="form-control"
+                   placeholder="수량을 입력하세요" id="quentity" onkeyup="cal()"
+                   th:class="${#fields.hasErrors('stockQuantity')}? 'form-control fieldError' : 'form-control'"/>
+            <p th:if="${#fields.hasErrors('stockQuantity')}"
+               th:errors="*{stockQuantity}">Incorrect date</p>
+        </div>
+        <div class="form-group" id="sumPrice">
+            <label th:for="price">가격</label>
+            <input type="number" th:field="*{price}" class="form-control"
+                   placeholder="가격을 입력하세요." id="price" disabled/>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <div th:replace="fragments/footer :: footer"/>
+</div> <!-- /container -->
+<script>
+    let price = document.getElementById("price").value; // 가격
+    function cal() {
+        let quentity = document.getElementById("quentity").value; // 수량
+        let sum = quentity * price;
+        document.getElementById("price").value = sum;
+    }
+    cal();
+</script>
+</body>
+</html>
